@@ -1,11 +1,15 @@
 ActiveAdmin.register AdminUser do
   permit_params :email, :password, :password_confirmation
 
+  order_by(:gold_stars) do |order_clause|
+    ['COUNT(gold_stars.id)', order_clause.to_sql].join(' ')
+  end
+
   index do
     selectable_column
     id_column
     column :email
-    column 'Gold Stars' do |admin_user|
+    column :gold_stars, sortable: true do |admin_user|
       admin_user.gold_stars.count
     end
     column :created_at
