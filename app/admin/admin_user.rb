@@ -5,9 +5,11 @@ ActiveAdmin.register AdminUser do
     selectable_column
     id_column
     column :email
-    column :current_sign_in_at
-    column :sign_in_count
+    column 'Gold Stars' do |admin_user|
+      admin_user.gold_stars.count
+    end
     column :created_at
+    column :updated_at
     actions
   end
 
